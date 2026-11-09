@@ -1,0 +1,10 @@
+# Add to the "kong" service of the kong-poc docker-compose.yml.
+# Assumes this repository sits next to kong-poc:  parent/kong-poc  and  parent/kong-plugin-envelope
+services:
+  kong:
+    environment:
+      KONG_PLUGINS: bundled,envelope
+      KONG_NGINX_HTTP_LUA_SHARED_DICT: envelope_sessions 64m
+      KONG_NGINX_HTTP_CLIENT_BODY_BUFFER_SIZE: 2m
+    volumes:
+      - ../kong-plugin-envelope/kong/plugins/envelope:/usr/local/share/lua/5.1/kong/plugins/envelope:ro
